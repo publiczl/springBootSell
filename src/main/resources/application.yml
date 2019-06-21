@@ -1,0 +1,51 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: utf-8
+spring:
+ thymeleaf:
+   prefix: classpath:/views/  #指定模板目录  默认templates
+   suffix: .html
+   cache: false
+   mode: LEGACYHTML5
+ mvc:
+   static-path-pattern: /wechat/**
+ resources:
+   static-locations: classpath:/static/ #指定静态资源目录  默认static
+ datasource:
+   url:  jdbc:mysql://127.0.0.1/sell?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&zeroDateTimeBehavior=convertToNull
+   username: root
+   password: 123
+   driver-class-name: com.mysql.cj.jdbc.Driver
+ jackson:
+   date-format: yyyy-MM-dd HH:mm:ss
+   time-zone: GMT+8
+mybatis:
+  type-aliases-package: cn.cxh.sell.enttry #指定实体包
+pagehelper:
+  helperDialect:
+  helper-dialect: mysql #指定数据库
+#  params: count=countSql
+  reasonable: false
+  support-methods-arguments: true
+#mapper:
+#  identity: mysql
+
+project-url:
+  wechatMpAuthorize: http://zmm.cqhuaye.cn
+  wechatOpenAuthorize: dsdsd.com
+  sell: www.sell.com
+
+wechat:
+  mpAppId: wx566c789f4f4e56e7
+  mpAppSecret: 3106bd34162be715cacbb1ef0ad58a00
+  openAppId:
+  openAppSecret:
+  mchId: 1530163691
+  mchKey: 1Qaz2Wsx3Edc4Rfv5Tgb6Yhn7Ujm8Ik1
+  keyPath: G:/apiclient_cert.p12
+  notifyUrl: http://zmm.cqhuaye.cn/service/notify
+  templateId:
+    orderStatus: GoCullfix05R-rCibvoyI87ZUg50cyieKA5AyX7pPzo

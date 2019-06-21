@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="admin/layout::head" th:with="title=${title}"/>
+
+<link th:href="@{/static/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+<body>
+<div id="wrapper">
+    <nav  class="navbar-default navbar-static-side" role="navigation">
+        <div th:replace="admin/layout::navMenu"/>
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div th:replace="admin/layout::top"/>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="table-responsive">
+
+                <table class="table table-striped table-bordered table-hover dataTables-example dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" role="grid">
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 166.617px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">编号</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 208.5px;" aria-label="Browser: activate to sort column ascending">商品类型</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 186.65px;" aria-label="Platform(s): activate to sort column ascending">上级分类</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 186.65px;" aria-label="Platform(s): activate to sort column ascending">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/layout::footer"/>
+
+</div>
+
+</div>
+
+
+
+
+<div th:replace="admin/layout::js"/>
+<script th:src="@{/static/js/plugins/dataTables/datatables.min.js}"></script>
+<script th:src="@{/static/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function(){
+        $('.dataTables-example').DataTable({
+            paging: true,//开启表格分页,
+            aLengthMenu:[5,10],  //用户可自选每页展示数量 5条或10条
+            pageLength: 5,
+            responsive: true,
+            bInfo:false,
+            bLengthChange:true,
+            bPaginate:true,
+            dom: '<"html5buttons"B>lTfgitp',
+            ajax: {
+                url: "http://localhost/productCategory/data",
+//                dataSrc: "sell",
+            },
+            columns: [
+                {
+                    sWidth: "50%",
+                    sClass: "text-center",
+                    data: "categoryId",
+                    targets: 0
+                },
+                {
+                    sWidth: "20%",
+                    sClass: "text-center",
+                    data: "categoryName",
+                    targets: 0
+                },
+                {
+                    sWidth: "50%",
+                    sClass: "text-center",
+                    data: "categoryType",
+                    targets: 0
+                }
+
+            ],
+            aoColumnDefs:[//设置列的属性，此处设置第一列不排序
+                 {bSortable: false, aTargets: [0]},
+                { targets:3,
+                    data: null,
+                    class:"text-center",
+                    bSortable: false,
+                    defaultContent: "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick='edit(this)'>修改</button>&nbsp;&nbsp;&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-danger btn-sm\" onclick='del(this)'>删除</button>" } ],
+
+            language:{
+                search:"搜索",
+                info : "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                processing: "处理中...",
+                lengthMenu: "显示 _MENU_ 项结果",
+                zeroRecords: "没有匹配结果",
+                oPaginate: {
+                    sFirst : "第一页",
+                    sPrevious : "上一页",
+                    sNext : "下一页",
+                    sLast : "最后一页"
+                }
+            },
+            buttons: [
+                { extend: 'copy',text:'复制'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
+
+                {extend: 'print',text:'打印',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+    });
+
+
+    function edit(dome) {
+        var id=$(dome).parent().parent().children().first();
+        window.location.href="/productCategory/edit/"+id.text();
+      //console.log($(dome).parent().parent().children().first())
+    }
+    function del(dome) {
+        var id=$(dome).parent().parent().children().first();
+        window.location.href="/productCategory/del/"+id.text();
+        console.log($(dome))
+    }
+
+
+</script>
+</body>
+</html>

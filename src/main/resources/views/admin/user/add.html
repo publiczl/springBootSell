@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="admin/layout::head" th:with="title=${title}"/>
+
+<link th:href="@{/static/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+<body>
+<div id="wrapper">
+    <nav  class="navbar-default navbar-static-side" role="navigation">
+        <div th:replace="admin/layout::navMenu"/>
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div th:replace="admin/layout::top"/>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox-content">
+                <form method="post" action="/user/add">
+                    <div class="form-group  row"><label class="col-sm-2 col-form-label">用户名</label>
+                        <div class="col-sm-10"><input type="text" name="userName"  class="form-control"></div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group row"><label class="col-sm-2 col-form-label">密码</label>
+                        <div class="col-sm-10"><input type="password" class="form-control" name="password"></div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-white btn-sm" type="reset">重置</button>
+                            <button class="btn btn-primary btn-sm" type="submit">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div th:replace="admin/layout::footer"/>
+
+    </div>
+
+</div>
+
+<script th:replace="admin/layout::js"/>
+
+</body>
+</html>
